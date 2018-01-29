@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Bloccit</title>
+    <!-- the initial-scale=1 is to instructs high pixel density screens that are small to display our pahes at a regualr readable size -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +11,18 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <!-- here we are creating links. we use rubys link to method which is a helper method available in viewa, and returns a valid html hyperlink -->
+        <!-- does the welcome_index_path render the page first going through the routes.rb file or does go straight to the file location???????????????????????????????? -->
+        <!-- this ruby version renders like <a href="/welcome/index">Home</a> -->
+
+        <li><%= link_to "Home", welcome_index_path %></li>
+        <li><%= link_to "About", welcome_about_path %></li>
+      </ul>
+
+
+      <%= yield %>
+    </div>
   </body>
 </html>
