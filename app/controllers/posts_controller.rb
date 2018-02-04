@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
     @posts.each_with_index do |post, index|
       if index %5 == 0
-        post.title = "SPAM #{:title}"
+        post.title = "SPAM!!!! #{post.title}"
       end
     end
   end
