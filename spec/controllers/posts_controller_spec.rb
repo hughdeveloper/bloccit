@@ -70,7 +70,7 @@ let(:my_post) {Post.create!(title: RandomData.random_sentence, body: RandomData.
        new_title = RandomData.random_sentence
        new_body = RandomData.random_paragraph
 
-       put :update, id: my_post.id, post: {title: new_title, body: new_body}
+       put :update, params: {id: my_post.id, post: {title: new_title, body: new_body}}
 
        updated_post = assigns(:post)
        expect(updated_post.id).to eq my_post.id
@@ -82,7 +82,7 @@ let(:my_post) {Post.create!(title: RandomData.random_sentence, body: RandomData.
        new_title = RandomData.random_sentence
        new_body = RandomData.random_paragraph
 
-       put :update, id: my_post.id, post: {title: new_title, body: new_body}
+       put :update, params: {id: my_post.id, post: {title: new_title, body: new_body}}
        expect(response).to redirect_to my_post
      end
    end
@@ -118,6 +118,19 @@ describe "POST create" do
     it "redirects to the new post" do
       post :create, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
       expect(response).to redirect_to Post.last
+    end
+  end
+
+  describe "DELETE destroy" do
+    it "deletes the post" do
+      delete :destroy, params: {id: my_post.id}
+      count = Post.where({id: my_post.id}).size
+      expect(count).to eq 0
+    end
+
+    it "redirects to posts index" do
+      delete :destroy, params: {id: my_post.id}
+      expect(response).to redirect_to posts_path
     end
   end
 
