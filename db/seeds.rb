@@ -29,7 +29,17 @@ end
 Comment.find_or_create_by!(post: @post , body: "Not Random. There should also be no duplications of this Comment")
 
 
+20.times do
+  Advertisement.create!(
+    title: RandomData.random_word,
+    body: RandomData.random_sentence,
+    price: RandomData.random_number
+  )
+end
+
+
 puts "Seed Finished"
 # Counting the number of post objects
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
+puts "#{Advertisement.count} advertisements created"
