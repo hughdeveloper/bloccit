@@ -2,32 +2,36 @@ require 'rails_helper'
 
 RSpec.describe AdvertisementsController, type: :controller do
 
-  describe "GET #index" do
+  let(:my_advertisement) {Advertisement.create!(title: RandomData.random_word, body: RandomData.random_sentence, price: RandomData.random_number)}
+
+
+  describe "GET index" do
     it "returns http success" do
       get :index
       expect(response).to have_http_status(:success)
     end
+
+    it "assigns [my_advertisement] to @advertisements" do
+      get :index, params: {id: my_advertisement.id}
+      expect(assigns(:advertisements)).to eq([my_advertisement])
+    end
   end
 
-  describe "GET #show" do
+  describe "GET show" do
     it "returns http success" do
-      get :show
+      get :show, params: [id: my_advertisement.id]
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #new" do
+  describe "GET new" do
     it "returns http success" do
       get :new
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #create" do
-    it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
-    end
+  describe "GET create" do
 
     it "increases the number of Advertisements by 1" do
       expect{advertisement :create, params: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}}.to change(Advertisement,:count).by(1)
@@ -38,7 +42,7 @@ RSpec.describe AdvertisementsController, type: :controller do
       expect(assigns(:advertisement)).to eq Advertisement.last
     end
 
-    it "redirects to the new post" do
+    it "redirects to the new advertisement" do
       advertisement :create, params: {title: RandomData.random_word, body: RandomData.random_sentence, price: RandomData.random_number}
       expect(response).to redirect_to Advertisement.last
     end
