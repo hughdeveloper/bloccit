@@ -37,9 +37,18 @@ Comment.find_or_create_by!(post: @post , body: "Not Random. There should also be
   )
 end
 
+100.times do
+  Question.create!(
+    title: RandomData.random_sentence,
+    body: RandomData.random_paragraph,
+    resolved: RandomData.random_boolean
+  )
+end
+
 
 puts "Seed Finished"
 # Counting the number of post objects
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisements created"
+puts "#{Question.count} questions created"

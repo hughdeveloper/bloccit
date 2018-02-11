@@ -29,4 +29,9 @@ module RandomData
     numbers.shuffle!
     numbers[0, rand(0..3)].join
   end
+
+  def self.random_boolean
+    result = [true, false].sample
+  end
+
 end
