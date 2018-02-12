@@ -104,16 +104,16 @@ let(:my_question) {Question.create!(title: RandomData.random_sentence, body: Ran
  describe "QUESTION create" do
 
      it "increases the number of question by 1" do
-       expect{question :create, params:{ question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: RandomData.random_boolean}}}.to change(Question,:count).by(1)
+       expect{post :create, params:{ question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: RandomData.random_boolean}}}.to change(Question,:count).by(1)
      end
 
      it "assigns the new question to @question" do
-       question :create, params: { question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: RandomData.random_boolean}}
+       post :create, params: { question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: RandomData.random_boolean}}
        expect(assigns(:question)).to eq Question.last
      end
 
      it "redirects to the new question" do
-       question :create, params: { question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: RandomData.random_boolean}}
+       post :create, params: { question: {title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: RandomData.random_boolean}}
        expect(response).to redirect_to Question.last
      end
    end
