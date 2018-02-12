@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :topics
+  resources :topics do
+    resources :posts, expect: [:index]
+  end
 
   resources :questions
 
@@ -8,7 +10,6 @@ Rails.application.routes.draw do
 
 
   #we call the resources method and pass it a Symbol. This instructs Rails to create post routes for creating, updating, viewing, and deleting instances of Post
-  resources :posts
 
 
   #instead of going to welcome/about the link will show about
