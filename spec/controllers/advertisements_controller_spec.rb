@@ -19,6 +19,7 @@ RSpec.describe AdvertisementsController, type: :controller do
 
   describe "GET show" do
     it "returns http success" do
+      get :show, params: {id: my_advertisement.id}
       expect(response).to have_http_status(:success)
     end
   end
@@ -40,8 +41,12 @@ RSpec.describe AdvertisementsController, type: :controller do
     it "assigns the new advertisement to @advertisement" do
       advertisement :create, params: { advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}}
 =======
+      expect{post :create, params: { advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}}}.to change(Advertisement,:count).by(1)
     end
 
+    it "assigns the new advertisement to @advertisement" do
+      # post is the verb not the object called post
+      post :create, params: { advertisement: {title: RandomData.random_word, body: RandomData.random_sentence, price: RandomData.random_number}}
 >>>>>>> checkpoint-10-assignment
       expect(assigns(:advertisement)).to eq Advertisement.last
     end
@@ -50,6 +55,7 @@ RSpec.describe AdvertisementsController, type: :controller do
 <<<<<<< HEAD
       advertisement :create, params: { advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}}
 =======
+      post :create, params: { advertisement: {title: RandomData.random_word, body: RandomData.random_sentence, price: RandomData.random_number}}
 >>>>>>> checkpoint-10-assignment
       expect(response).to redirect_to Advertisement.last
     end
