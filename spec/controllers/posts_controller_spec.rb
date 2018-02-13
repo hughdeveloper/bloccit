@@ -9,7 +9,7 @@ let(:my_post) {my_topic.posts.create!(title: RandomData.random_sentence, body: R
 
   describe "GET show" do
     it "returns http success" do
-      get :show, params: {topic_id: my_topic.id, post: {id: my_post.id}}
+      get :show, params: {topic_id: my_topic.id, id: my_post.id}
       expect(response).to have_http_status(:success)
     end
 
@@ -114,7 +114,7 @@ describe "POST create" do
 
   describe "DELETE destroy" do
     it "deletes the post" do
-      delete :destroy, params: {topic_id: my_topic.id, {id: my_post.id}}}
+      delete :destroy, params: {topic_id: my_topic.id, post: {id: my_post.id}}
       count = Post.where({id: my_post.id}).size
       expect(count).to eq 0
     end
