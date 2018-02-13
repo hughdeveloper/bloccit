@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :topics do
     resources :posts, expect: [:index]
+    resources :sponsoredposts, expect: [:index]
   end
 
   resources :questions
