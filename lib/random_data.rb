@@ -27,8 +27,8 @@ module RandomData
   def self.random_number
     numbers = ('0'..'9').to_a
     numbers.shuffle!
-    numbers[0, rand(0..3)].join
-    numbers
+    number = numbers[0, rand(1..4)].join
+    number
   end
 
   def self.random_boolean

@@ -1,2 +1,12 @@
-<h1>Sponsoredposts#show</h1>
-<p>Find me in app/views/sponsoredposts/show.html.erb</p>
+<h1><%= @sponsoredpost.title %></h1>
+<div class="row">
+  <div class="col-md-8">
+    <h3>$<%= @sponsoredpost.price %></h3>
+    <p><%= @sponsoredpost.body %></p>
+  </div>
+</div>
+<div class="col-md-4">
+  <%= link_to "Edit", edit_topic_sponsoredpost_path(@sponsoredpost.topic, @sponsoredpost), class: 'btn btn-success' %>
+  <%= link_to "Delete Sponsoredpost", [@sponsoredpost.topic, @sponsoredpost], method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this sponsoredpost?'}%>
+</div>
+</div>
