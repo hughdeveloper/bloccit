@@ -5,6 +5,11 @@ class Post < ApplicationRecord
 
   #order posts in descending order by the created time
   default_scope { order('created_at DESC') }
+  #we title how we are going to call the aciton and then tell it what to do
+  # title in descending order
+  scope :ordered_by_title, -> { order('title DESC') }
+  #this is the same as the default scope except we are going in ascending order
+  scope :ordered_by_reverse_created_at, -> { order('created_at ASC') }
 
 
   validates :title, length: {minimum: 5}, presence: true
