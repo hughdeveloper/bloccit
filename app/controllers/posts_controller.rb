@@ -21,13 +21,9 @@ class PostsController < ApplicationController
 
   def create
     #we call post.new to create a new instance of post or a new object to store the new post in
-    @post = Post.new
-    @post.title = params[:post][:title]
-    @post.body = params[:post][:body]
+
     @topic = Topic.find(params[:topic_id])
-
-    @post.topic = @topic
-
+    @post = @topic.posts.build(post_params)
     @post.user = current_user
 
     #here is were we alert the user weather we were successful with the upload of the new post
@@ -50,8 +46,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    @post.title = params[:post][:title]
-    @post.body = params[:post][:body]
+    @post.assign_attributes(post_params)
 
     if @post.save
       flash[:notice] = "Post was updated."
@@ -73,6 +68,13 @@ class PostsController < ApplicationController
       flash.now[:alert] = "There was an error deleting the post."
       render :show
     end
+  end
+
+  # always have private code at the end since anything under it will be private code
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
   end
 
 end
