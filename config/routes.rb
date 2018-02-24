@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   resources :topics do
-    resources :posts, expect: [:index]
-    resources :sponsoredposts, expect: [:index]
+    resources :posts, except: [:index]
+    resources :sponsoredposts, except: [:index]
   end
 
   resources :questions
