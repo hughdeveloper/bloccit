@@ -9,6 +9,22 @@ require 'random_data'
 end
 topics = Topic.all
 
+5.times do
+  User.create!(
+    name: RandomData.random_name,
+    email: RandomData.random_email,
+    password: RandomData.random_sentence
+  )
+end
+
+user = User.first
+user.update_attributes!(
+  email: 'cool@bloccit.com',
+  password: 'helloworld'
+)
+
+users = User.all
+
 
 
 
@@ -16,6 +32,7 @@ topics = Topic.all
   # the ! symbol instructs the method to raise an error if theres a problem with the data we are seeding
   # if no ! mark and the call failed it would return false
   Post.create!(
+    user: users.sample,
     topic: topics.sample,
     title: RandomData.random_sentence,
     body: RandomData.random_paragraph
@@ -43,7 +60,7 @@ posts = Post.all
 end
 
 
-@post = Post.find_or_create_by!(title: "Not Random Post", body: "Not Random. There should also be no duplications of this post", topic: topics.sample)
+@post = Post.find_or_create_by!(title: "Not Random Post", body: "Not Random. There should also be no duplications of this post", topic: topics.sample, user: users.sample)
 
 
 Comment.find_or_create_by!(post: @post , body: "Not Random. There should also be no duplications of this Comment")
@@ -68,6 +85,7 @@ end
 
 puts "Seed Finished"
 # Counting the number of post objects
+puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Sponsoredpost.count} sponsoredposts created"

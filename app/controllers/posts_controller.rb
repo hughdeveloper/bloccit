@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+
+  before_action :require_sign_in, except: :show
+
   def index
     @posts.each_with_index do |post, index|
       if index %5 == 0
@@ -24,6 +27,8 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
 
     @post.topic = @topic
+
+    @post.user = current_user
 
     #here is were we alert the user weather we were successful with the upload of the new post
     if @post.save
