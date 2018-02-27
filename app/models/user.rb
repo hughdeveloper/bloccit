@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   before_save :format_name
   before_save {self.email = email.downcase if email.present?}
+  # ||= is a Ruby trick. The code self.role ||= :member, then, is shorthand for  self.role = :member if self.role.nil?
+  before_save { self.role ||= :member }
 
   validates :name, length: {minimum: 1, maximum: 100}, presence: true
   # the nil allows the user to reset other portions of there account without having to update the password as well
@@ -17,6 +19,8 @@ class User < ApplicationRecord
 
 
   has_secure_password
+
+  enum role: [:member, :admin]
 
   def format_name
     if name

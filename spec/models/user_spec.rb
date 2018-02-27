@@ -43,8 +43,54 @@ RSpec.describe User, type: :model do
        expect(user_with_invalid_email).to_not be_valid
      end
 
+
+
+
+     #here we check if the user responds to the role that the user has/ the powers they are granted
+     it "responds to role" do
+       expect(user).to respond_to(:role)
+     end
+     # we expect user to respond to admin and check if the user is a admin or not
+     it "responds to admin" do
+       expect(user).to respond_to(:admin?)
+     end
+     # we expect user to respond to member and check if the user is a member or not
+     it "responds to member" do
+       expect(user).to respond_to(:member?)
+     end
    end
 
+   describe "roles" do
+     # We expect users to be assigned as a memeber by defualt
+     it "is member by default" do
+       expect(user.role).to eql("member")
+     end
 
+     # here we text the member user
+     context "member user" do
+       it "returns true for #member?" do
+         expect(user.member?).to be_truthy
+       end
+
+       it "returns false for #admin?" do
+         expect(user.admin?).to be_falsey
+       end
+     end
+
+     # here we test the admin user
+     context "admin user" do
+       before do
+         user.admin!
+       end
+
+       it "returns false for #member?" do
+         expect(user.member?).to be_falsey
+       end
+
+       it "returns true for #admin?" do
+         expect(user.admin?).to be_truthy
+       end
+     end
+   end
 
 end
