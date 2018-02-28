@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pry'
 
 RSpec.describe TopicsController, type: :controller do
   let(:my_topic) {Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)}
@@ -38,7 +39,7 @@ RSpec.describe TopicsController, type: :controller do
     end
 
     describe "GET new" do
-      it "returns http success" do
+      it "redirects to topic path" do
         get :new
         expect(response).to redirect_to(new_session_path)
       end
@@ -54,7 +55,7 @@ RSpec.describe TopicsController, type: :controller do
     describe "GET edit" do
       it "returns http redirect" do
          get :edit, params: {id: my_topic.id}
-         expect(response).to redirect_to(new_session_path)
+         expect(response).to redirect_to(topics_path)
        end
     end
 
@@ -66,14 +67,14 @@ RSpec.describe TopicsController, type: :controller do
          new_description = RandomData.random_paragraph
 
          put :update, params: {id: my_topic.id, topic: { name: new_name, description: new_description }}
-         expect(response).to redirect_to(new_session_path)
+         expect(response).to redirect_to(topics_path)
        end
     end
 
     describe "DELETE destroy" do
       it "redirects to topics index" do
         delete :destroy, params: {id: my_topic.id}
-        expect(response).to redirect_to(new_session_path)
+        expect(response).to redirect_to(topics_path)
       end
     end
   end
@@ -107,9 +108,9 @@ RSpec.describe TopicsController, type: :controller do
 
 
   context "member user" do
-    before do
+    before(:each) do
       user = User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld", role: :member)
-      set_session(user)
+      sign_in(user)
     end
 
 
@@ -145,6 +146,7 @@ RSpec.describe TopicsController, type: :controller do
     describe "GET new" do
       it "returns http success" do
         get :new
+        binding.pry
         expect(response).to redirect_to topics_path
       end
     end
