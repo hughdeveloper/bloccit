@@ -64,10 +64,9 @@ users = User.all
 
 posts = Post.all
 
-
 100.times do
   Comment.create!(
-    # sample is a method for an array that returns a random object in the array
+    user: users.sample,
     post: posts.sample,
     body: RandomData.random_paragraph
   )
@@ -77,7 +76,7 @@ end
 @post = Post.find_or_create_by!(title: "Not Random Post", body: "Not Random. There should also be no duplications of this post", topic: topics.sample, user: users.sample)
 
 
-Comment.find_or_create_by!(post: @post , body: "Not Random. There should also be no duplications of this Comment")
+Comment.find_or_create_by!(post: @post , body: "Not Random. There should also be no duplications of this Comment", user: users.sample)
 
 
 20.times do
