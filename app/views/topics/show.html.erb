@@ -5,32 +5,12 @@
   <div class="col-md-8">
     <p class="lead"><%= @topic.description %></p>
     <% @topic.posts.each do |post| %>
-      <div class="media">
-        <div class="media-body">
-          <h4 class="media-heading">
-            <%= link_to post.title, topic_post_path(@topic, post) %>
-          </h4>
-          <small>
-            submitted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.name %> <br>
-            <%= post.comments.count %> Comments
-          </small>
-        </div>
-      </div>
+      <%= render post %>
     <% end %>
     <br>
     <h3>Sponsoredposts</h3>
     <% @topic.sponsoredposts.each do |sponsoredpost| %>
-      <div class="media">
-        <div class="media-body">
-          <h4 class="media-heading">
-            <%= link_to sponsoredpost.title, topic_sponsoredpost_path(@topic, sponsoredpost) %>
-          </h4>
-          <h6>$ <%= sponsoredpost.price %></h6> <br>
-          <small>
-            submitted <%= time_ago_in_words(sponsoredpost.created_at) %> ago
-          </small>
-        </div>
-      </div>
+      <%= render sponsoredpost %>
     <% end %>
 
   </div>

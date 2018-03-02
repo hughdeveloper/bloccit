@@ -1,0 +1,11 @@
+<div class="media">
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= link_to sponsoredpost.title, topic_sponsoredpost_path(@topic, sponsoredpost) %>
+    </h4>
+    <h6>$ <%= sponsoredpost.price %></h6> <br>
+    <small>
+      submitted <%= time_ago_in_words(sponsoredpost.created_at) %> ago
+    </small>
+  </div>
+</div>
