@@ -79,34 +79,6 @@ RSpec.describe TopicsController, type: :controller do
     end
   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   context "member user" do
     before(:each) do
       user = User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld", role: :member)
@@ -184,12 +156,6 @@ RSpec.describe TopicsController, type: :controller do
     end
   end
 
-
-
-
-
-
-
   context "Moderator user" do
     before do
       user = User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld", role: :moderator)
@@ -260,7 +226,6 @@ RSpec.describe TopicsController, type: :controller do
        end
     end
 
-
     describe "PUT update" do
        it "updates topic with expected attributes" do
          new_name = RandomData.random_sentence
@@ -291,58 +256,6 @@ RSpec.describe TopicsController, type: :controller do
       end
     end
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   context "admin user" do
     before do
