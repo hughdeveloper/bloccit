@@ -45,12 +45,15 @@ users = User.all
 50.times do
   # the ! symbol instructs the method to raise an error if theres a problem with the data we are seeding
   # if no ! mark and the call failed it would return false
-  Post.create!(
+  post = Post.create!(
     user: users.sample,
     topic: topics.sample,
     title: RandomData.random_sentence,
     body: RandomData.random_paragraph
   )
+
+  post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+  rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
   end
 
   50.times do
@@ -105,3 +108,4 @@ puts "#{Sponsoredpost.count} sponsoredposts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisements created"
 puts "#{Question.count} questions created"
+puts "#{Vote.count} votes created"

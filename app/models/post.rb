@@ -2,9 +2,10 @@ class Post < ApplicationRecord
   belongs_to :topic
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   #order posts in descending order by the created time
-  default_scope { order('created_at DESC') }
+  default_scope { order('rank DESC') }
   #we title how we are going to call the aciton and then tell it what to do
   # title in descending order
   scope :ordered_by_title, -> { order('title DESC') }
@@ -17,4 +18,22 @@ class Post < ApplicationRecord
   validates :topic, presence: true
   validates :user, presence: true
 
+
+    def up_votes
+     votes.where(value: 1).count
+    end
+
+    def down_votes
+     votes.where(value: -1).count
+    end
+
+    def points
+     votes.sum(:value)
+    end
+
+    def update_rank
+     age_in_days = (created_at - Time.new(1970,1,1)) / 1.day.seconds
+     new_rank = points + age_in_days
+     update_attribute(:rank, new_rank)
+   end
 end
