@@ -97,5 +97,4 @@ class PostsController < ApplicationController
       redirect_to [post.topic, post]
     end
   end
-
 end

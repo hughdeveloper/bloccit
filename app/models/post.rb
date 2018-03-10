@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :votes, dependent: :destroy
 
+  after_create :create_vote
+
   #order posts in descending order by the created time
   default_scope { order('rank DESC') }
   #we title how we are going to call the aciton and then tell it what to do
@@ -36,4 +38,12 @@ class Post < ApplicationRecord
      new_rank = points + age_in_days
      update_attribute(:rank, new_rank)
    end
+
+   private
+
+   def create_vote
+     user.votes.create(value: 1, post: self)
+   end
+
+
 end
