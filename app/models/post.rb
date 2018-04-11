@@ -9,6 +9,8 @@ class Post < ApplicationRecord
   after_create :create_favorite
   #order posts in descending order by the created time
   default_scope { order('rank DESC') }
+
+  scope :visible_to, -> (user) { user ? all : joins(:topic).where('topics.public' => true) }
   #we title how we are going to call the aciton and then tell it what to do
   # title in descending order
   scope :ordered_by_title, -> { order('title DESC') }

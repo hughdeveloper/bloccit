@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :advertisements
 
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :show]
 
   resources :sessions, only: [:new, :create, :destroy]
 

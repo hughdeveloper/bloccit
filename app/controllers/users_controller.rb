@@ -12,7 +12,6 @@ class UsersController < ApplicationController
     @user.password_confirmation = params[:user][:password_confirmation]
   end
 
-
   def create
     @user = User.new
     @user.name = params[:user][:name]
@@ -28,6 +27,12 @@ class UsersController < ApplicationController
       flash.now[:alert] = "There was an error creating your account. Please try again"
       render :new
     end
+  end
+
+#retrieve a user instance and set it to an instance variable
+  def show
+    @user = User.find(params[:id])
+    @posts = @user.posts.visible_to(current_user)
   end
 
 end
