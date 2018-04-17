@@ -34,3 +34,9 @@
 <%else%>
 <%= render @user.comments %>
 <%end%>
+
+<h2>Favorites</h2>
+
+<% @user.favorites.each do |favorite| %>
+  <%= render partial: 'favorites/favorite_post', locals: { post: favorite.post } %>
+<% end %>
